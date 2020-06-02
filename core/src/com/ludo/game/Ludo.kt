@@ -8,22 +8,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
 class Ludo : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
-    lateinit var img: Texture
+    lateinit var board: Texture
+    lateinit var red: Texture
     override fun create() {
         batch = SpriteBatch()
-        img = Texture("badlogic.jpg")
+        board = Texture("board.png")
+        red = Texture("redgotty.png")
     }
 
     override fun render() {
         Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
-        batch.draw(img, 0f, 0f)
+        batch.draw(board, 0f, 0f,Gdx.graphics.width.toFloat(),Gdx.graphics.height.toFloat())
+        batch.draw(red, 71f, 340f,red.width.toFloat()/2,red.height.toFloat()/2)
         batch.end()
     }
 
     override fun dispose() {
         batch.dispose()
-        img.dispose()
+        board.dispose()
     }
 }
