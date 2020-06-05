@@ -1,48 +1,17 @@
 package com.ludo.game
 
-import com.badlogic.gdx.ApplicationAdapter
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.maps.tiled.TiledMap
-import com.badlogic.gdx.maps.tiled.TmxMapLoader
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
+import com.badlogic.gdx.Game
+import com.badlogic.gdx.assets.AssetManager
+import com.ludo.game.screens.MainGameScreen
 
-class Ludo : ApplicationAdapter() {
-    lateinit var batch: SpriteBatch
-    lateinit var board: Sprite
-    lateinit var red: Texture
-    lateinit var mapRenderer: OrthogonalTiledMapRenderer
-    lateinit var map: TiledMap
-    lateinit var camera : OrthographicCamera
+class Ludo : Game() {
+
     override fun create() {
-        val viewportWidth =  Gdx.graphics.width.toFloat()
-        val viewportHeight = Gdx.graphics.height.toFloat()
-        camera = OrthographicCamera().apply {
-            setToOrtho(false,viewportWidth,viewportHeight)
-            update()
-        }
-        batch = SpriteBatch()
-        board = Sprite(Texture("ludo.png")).apply {
-            setOriginBasedPosition(viewportWidth/2f,viewportHeight/2f)
-            setScale(.85f) }
-        map = TmxMapLoader().load("ludo.tmx")
-        mapRenderer = OrthogonalTiledMapRenderer(map)
-        red = Texture("redgotty.png")
-    }
-
-    override fun render() {
-        Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        batch.begin()
-        board.draw(batch)
-        batch.end()
+        setScreen(MainGameScreen())
     }
 
     override fun dispose() {
-        batch.dispose()
+        super.dispose()
+        screen.dispose()
     }
 }
