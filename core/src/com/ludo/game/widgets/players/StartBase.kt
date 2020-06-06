@@ -5,12 +5,11 @@ import com.ludo.game.widgets.board.BoardField
 import com.ludo.game.widgets.board.Token
 import java.awt.Point
 import java.util.*
-import kotlin.properties.Delegates
 
 abstract class StartBase(val rows: Int, val columns: Int, val gridSize: Float, val gridOX: Float, val gridOY: Float, val numOfStartLocations: Int, val startField: BoardField?) {
 
     // BoardField matrix.
-    protected var mStartBase: Array<Array<BoardField?>> = Array(rows) { arrayOfNulls(columns) }
+    protected var mStartBase: Array<Array<BoardField?>> = Array(rows) { arrayOfNulls<BoardField?>(columns) }
     var numOfFilledLocations : Int = numOfStartLocations
 
     init {
@@ -54,7 +53,7 @@ abstract class StartBase(val rows: Int, val columns: Int, val gridSize: Float, v
     }
 
     // Configures and sets the fields that will be used.
-    abstract fun setUsableFields(tokens: Array<Token>)
+    abstract fun setUsableFields(tokens: Array<Token?>)
 
     // Returns an available BoardField
     abstract fun getAvailableStartBoardField(): BoardField?

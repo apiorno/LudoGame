@@ -7,16 +7,16 @@ import java.awt.Point
 class RedStartBase(rows: Int, columns: Int, gridSize: Float, gridOX: Float,
                    gridOY: Float, numOfStartLocations: Int, startField: BoardField?, tokens: Array<Token?>) : StartBase(rows, columns, gridSize, gridOX, gridOY, numOfStartLocations, startField) {
 
-    override fun setUsableFields(tokens: Array<Token>) {
+    override fun setUsableFields(tokens: Array<Token?>) {
         /**
          * This is the our start field setup:
          * O X X
          * X O X
          * X X X
          */
-        tokens[0].currLocation = Point(0, 2)
+        tokens[0]?.currLocation = Point(0, 2)
         this.mStartBase.get(0).get(2)?.token = tokens[0]
-        tokens[1].currLocation = Point(1, 1)
+        tokens[1]?.currLocation = Point(1, 1)
         this.mStartBase.get(1).get(1)?.token = tokens[1]
     }
 

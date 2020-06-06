@@ -218,7 +218,7 @@ class MainGameScreen: Screen {
 
     private fun evaluationPhase( token : Token) {
         // get the location the token might have in the future.
-        var tokenPosition =  Point(token.possibleFutureLocation.getX().toInt(), token.possibleFutureLocation.getY().toInt())
+        var tokenPosition =  Point(token.possibleFutureLocation!!.getX().toInt(), token.possibleFutureLocation!!.getY().toInt())
         // get the board field corresponding to the given location.
          val boardField :BoardField? = if (token.isField)  this.mBoardLevel.board[tokenPosition.getX().toInt()][tokenPosition.getY().toInt()] else null
         // get the current player.
@@ -306,7 +306,7 @@ class MainGameScreen: Screen {
                 val boardField = b.next()
                 val token = boardField.token
                 val location: Point = boardField.location
-                val tokenLocation = player?.startBase.getCenterOfLocation(location.getX().toInt(), location.getY().toInt())
+                val tokenLocation = player.startBase.getCenterOfLocation(location.getX().toInt(), location.getY().toInt())
                 token!!.setPosition(tokenLocation!!.x, tokenLocation.y)
                 mStage.addActor(token)
             }

@@ -12,16 +12,16 @@ class BlueStartBase(rows: Int, columns: Int, gridSize: Float, gridOX: Float,
         this.setUsableFields(tokens)
     }
 
-    override fun setUsableFields(tokens: Array<Token>) {
+    override fun setUsableFields(tokens: Array<Token?>) {
         /**
          * This is the our start field setup:
          * X X O
          * X O X
          * X X X
          */
-        tokens[0].currLocation = Point(2, 2)
+        tokens[0]?.currLocation = Point(2, 2)
         mStartBase[2][2]!!.token = tokens[0]
-        tokens[1].currLocation = Point(1, 1)
+        tokens[1]?.currLocation = Point(1, 1)
         mStartBase[1][1]!!.token = tokens[1]
     }
 

@@ -39,9 +39,9 @@ class Board {
 
     // Configures the the board based on a JSON file.
     private fun setupBoard(rows: Int, columns: Int) {
-        board = Array(rows) { arrayOfNulls(columns) }
+        board = Array(rows) { arrayOfNulls<BoardField?>(columns) }
         var token: BoardField
-        var nextLocation: Point? = null
+        var nextLocation: Point?
         val board = loadJSONBoard()
         var c = columns - 1
         var i = 0

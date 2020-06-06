@@ -9,9 +9,8 @@ class Player(val startBase: StartBase?, val tokens: Array<Token?>, val playerTyp
     // returns the amount of tokens that are on the home field
     fun numberOfTokensHome(): Int {
         var tokensHome = 0
-        for (i in tokens.indices) {
-            val token: Token = tokens[i]
-            if (token.isHome) {
+        for (token in tokens) {
+            if (token!!.isHome) {
                 tokensHome++
             }
         }

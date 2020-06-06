@@ -9,7 +9,7 @@ import java.awt.Point
 class Token(  val tokenType: Color,  val sprite: Sprite) : Image(sprite) {
     var movedSpaces = 0
     var currLocation: Point
-    var possibleFutureLocation: Point
+    var possibleFutureLocation: Point?
     private var canMove = false
     var isBase = false
     var isHome = false
@@ -26,10 +26,10 @@ class Token(  val tokenType: Color,  val sprite: Sprite) : Image(sprite) {
     }
 
     fun setCanMove(canMove: Boolean, possibleFutureLocation: Point?) {
-        this.possibleFutureLocation = (if (canMove) possibleFutureLocation else null) as Point
+        this.possibleFutureLocation = if (canMove) possibleFutureLocation else null
         val alpha: Float = if (canMove) Constants.TOKEN_SELECTABLE_ALPHA else Constants.TOKEN_NOT_SELECTABLE_ALPHA
         this.canMove = canMove
-        val c = Color(sprite!!.color)
+        val c = Color(sprite.color)
         c[c.r, c.g, c.b] = alpha
         this.setColor(c)
     }
