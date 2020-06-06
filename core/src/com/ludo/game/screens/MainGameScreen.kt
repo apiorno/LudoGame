@@ -55,7 +55,6 @@ class MainGameScreen: Screen {
     }
 
     override fun show() {
-        resourceManager.load()
         mStage = Stage(FitViewport(Constants.BACKGROUND_IMAGE_WIDTH.toFloat(), Constants.BACKGROUND_IMAGE_HEIGHT.toFloat()))
         Gdx.input.inputProcessor = mStage
         mStage.addActor(this.resourceManager.background)
@@ -74,19 +73,6 @@ class MainGameScreen: Screen {
         this.setupStartBases()
         this.nextPlayersTurn()
         mStartPhase = true
-        /*val viewportWidth =  Gdx.graphics.width.toFloat()
-        val viewportHeight = Gdx.graphics.height.toFloat()
-        camera = OrthographicCamera().apply {
-            setToOrtho(false,viewportWidth,viewportHeight)
-            update()
-        }
-        batch = SpriteBatch()
-        board = Sprite(Texture("ludo.png")).apply {
-            setOriginBasedPosition(viewportWidth/2f,viewportHeight/2f)
-            setScale(.85f) }
-        map = TmxMapLoader().load("ludo.tmx")
-        mapRenderer = OrthogonalTiledMapRenderer(map)
-        red = Texture("redgotty.png")*/
     }
 
     /**
@@ -103,9 +89,6 @@ class MainGameScreen: Screen {
     override fun render(delta: Float) {
         this.startPhase()
         mStage.draw()
-        /*batch.begin()
-        board.draw(batch)
-        batch.end()*/
     }
     private fun startPhase() {
 
@@ -317,7 +300,7 @@ class MainGameScreen: Screen {
         mPlayers = arrayOfNulls(Constants.NUM_OF_PLAYERS)
         mCurrentPlayerIndex = 0
         val startBases = mBoardLevel.getStartingFields()
-        val types: Array<Color> = arrayOf<Color>(Color.YELLOW, Color.RED, Color.BLUE, Color.GREEN)
+        val types: Array<Color> = arrayOf(Color.YELLOW, Color.RED, Color.BLUE, Color.GREEN)
         var tokens: Array<Token?>
         for (i in mPlayers.indices) {
             // create player tokens.

@@ -7,6 +7,10 @@ import java.awt.Point
 class YellowStartBase(rows: Int, columns: Int, gridSize: Float, gridOX: Float,
                       gridOY: Float, numOfStartLocations: Int, startField: BoardField?, tokens: Array<Token?>) : StartBase(rows, columns, gridSize, gridOX, gridOY, numOfStartLocations, startField) {
 
+    init {
+        this.setUsableFields(tokens)
+    }
+
     override fun setUsableFields(tokens: Array<Token?>) {
         /**
          * This is the our start field setup:

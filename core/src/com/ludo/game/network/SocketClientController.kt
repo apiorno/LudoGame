@@ -1,16 +1,19 @@
 package com.ludo.game.network
 
 import com.badlogic.gdx.Gdx
+import com.ludo.game.Ludo
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONException as JSONException
 
-class SocketClientController {
+class SocketClientController (ludo: Ludo) {
 
-     private val SERVERL_URL = "http://localhost:8080"
+    val gameController = GameController(ludo)
+    private val SERVERL_URL = "http://localhost:8080"
     private val socket = IO.socket(SERVERL_URL)
+
     init {
         configSocketEvents()
         socket.connect()
@@ -27,13 +30,14 @@ class SocketClientController {
 
     private fun connectionEstablished (args: Array<Any>) {
         Gdx.app.log("SocketIO", "Connected");
-        // player = new Starship(playerShip);
     }
     private fun retrieveSocketId(args: Array<Any>){
         val data = args[0] as JSONObject
         try {
             val id = data.getString("id");
+            val color = data.getInt("color");
             Gdx.app.log("SocketIO", "My ID: " + id);
+            gameController.setUpPlayer(id,color)
         } catch (e: JSONException) {
             Gdx.app.log("SocketIO", "Error getting ID");
         }
@@ -43,8 +47,9 @@ class SocketClientController {
         val data = args[0] as JSONObject
         try {
             val id = data.getString("id");
-            Gdx.app.log("SocketIO", "New Player Connect: " + id);
-            //friendlyPlayers.put(id, new Starship(friendlyShip));
+            val color = data.getInt("color");
+            Gdx.app.log("SocketIO", "New Player Connect: " + id+ "color index:"+ color);
+            gameController.addRivalPlayer(id,color)
         }catch( e: JSONException){
             Gdx.app.log("SocketIO", "Error getting New PlayerID");
         }
@@ -53,23 +58,21 @@ class SocketClientController {
         val data = args[0] as JSONObject
         try {
             val id = data.getString("id");
-            //friendlyPlayers.remove(id);
+            gameController.removeRivalPlayer(id)
         }catch(e: JSONException){
             Gdx.app.log("SocketIO", "Error getting disconnected PlayerID");
         }
     }
     private fun retrievePlayers(args: Array<Any>){
              val objects =  args[0] as JSONArray
+            val result = hashMapOf<String,Int>()
             try {
 
                 for(i in 0 until objects.length()){
-                    /*Starship coopPlayer = new Starship(friendlyShip);
-                    Vector2 position = new Vector2();
-                    position.x = ((Double) objects.getJSONObject(i).getDouble("x")).floatValue();
-                    position.y = ((Double) objects.getJSONObject(i).getDouble("y")).floatValue();
-                    coopPlayer.setPosition(position.x, position.y);
-                    friendlyPlayers.put(objects.getJSONObject(i).getString("id"), coopPlayer);*/
+                    val obj = objects.getJSONObject(i)
+                    result[obj.getString("id")] = obj.getInt("color")
                 }
+            gameController.setUpActualRivals(result)
             } catch( e: JSONException){
                 Gdx.app.log("SocketIO", "Error getting Players");
             }
