@@ -18,6 +18,9 @@ class SocketClientController (ludo: Ludo) {
         configSocketEvents()
         socket.connect()
     }
+    fun dispose(){
+        socket.disconnect()
+    }
 
     private fun configSocketEvents() {
         socket
@@ -26,8 +29,12 @@ class SocketClientController (ludo: Ludo) {
                 .on("playerConnected", this::playerConnected)
                 .on("playerDisconnected", this::playerDisconnected)
                 .on("playerMoved", this::retrievePlayers)
+                .on("gameStarted",this::startGame)
     }
 
+    private fun startGame (args: Array<Any>) {
+        Gdx.app.log("SocketIO", "Game started");
+    }
     private fun connectionEstablished (args: Array<Any>) {
         Gdx.app.log("SocketIO", "Connected");
     }

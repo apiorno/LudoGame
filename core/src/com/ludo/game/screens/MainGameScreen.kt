@@ -57,8 +57,8 @@ class MainGameScreen: Screen {
     override fun show() {
         mStage = Stage(FitViewport(Constants.BACKGROUND_IMAGE_WIDTH.toFloat(), Constants.BACKGROUND_IMAGE_HEIGHT.toFloat()))
         Gdx.input.inputProcessor = mStage
-        mStage.addActor(this.resourceManager.background)
-        val font = BitmapFont()
+        //mStage.addActor(this.resourceManager.background)
+        /*val font = BitmapFont()
         val mDiceStyle = TextButtonStyle()
         mDiceStyle.font = font
         mDiceStyle.font.data.setScale(Constants.DICE_TEXT_SCALE.toFloat())
@@ -72,7 +72,7 @@ class MainGameScreen: Screen {
         this.createPlayers()
         this.setupStartBases()
         this.nextPlayersTurn()
-        mStartPhase = true
+        mStartPhase = true*/
     }
 
     /**
@@ -87,7 +87,7 @@ class MainGameScreen: Screen {
     }
 
     override fun render(delta: Float) {
-        this.startPhase()
+        //this.startPhase()
         mStage.draw()
     }
     private fun startPhase() {

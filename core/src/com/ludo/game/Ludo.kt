@@ -3,6 +3,7 @@ package com.ludo.game
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
+import com.ludo.game.network.SocketClientController
 import com.ludo.game.screens.MainGameScreen
 import com.ludo.game.widgets.board.Board
 import com.ludo.game.widgets.board.Token
@@ -17,17 +18,21 @@ class Ludo : Game() {
     lateinit var id: String
     lateinit var player: Player
     var resourceManager = ResourceManager ()
-    private val board = Board(Constants.BOARD_GRID_ROWS, Constants.BOARD_GRID_COLUMNS,
-    Constants.BOARD_GRID_SIZE, Constants.HOME_TOTAL_FIELDS)
+    lateinit var board :Board
+    lateinit var socketClientController : SocketClientController
 
     override fun create() {
         resourceManager.load()
+        board = Board(Constants.BOARD_GRID_ROWS, Constants.BOARD_GRID_COLUMNS,
+                Constants.BOARD_GRID_SIZE, Constants.HOME_TOTAL_FIELDS)
         setScreen(MainGameScreen())
+        socketClientController = SocketClientController(this)
     }
 
     override fun dispose() {
         super.dispose()
         screen.dispose()
+        socketClientController.dispose()
     }
     private fun newPlayerResolvingColorWith(colorIndex: Int) :Player{
 
